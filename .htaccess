@@ -1,0 +1,17 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# stop met processing als locatie zich al in de public directory bevindt
+RewriteRule ^public/ - [L]
+
+# Voor statische resources
+RewriteCond %{DOCUMENT_ROOT}/public/$1 -f
+RewriteRule (.+) public/$1 [L]
+
+# Route alle andere requests
+RewriteRule (.*) public/index.php?route=$1 [L, QSA]
+</IfModule>
+
+<!-- mod_rewrite zegt in deze file tegen Apache dat iedere request uiteindelijk terecht komt bij de index.php file in de public directory.
+Dus: https://localhost/page1 gaat naar  index.php. Index.php is dus eigenlijk de entry point van deze applicatie. 
+Dit zorgt er ook voor dat dat de rest van de projectstructuur verborgen zal zijn voor de gebruikers.-->
