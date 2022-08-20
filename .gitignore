@@ -1,2 +1,5 @@
 # Negeer alle log files
 *.log
+
+# Negeer config.php
+config/config.php
